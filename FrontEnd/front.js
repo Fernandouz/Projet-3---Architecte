@@ -1,6 +1,7 @@
-import { fetchWorks, openModal, postWork } from "./functions.js";
+import { fetchWorks, openModal } from "./functions.js";
 import { createWork } from "./functions.js";
 import { adminInterface } from "./functions.js";
+import {} from "./modal.js";
 
 let admin = { id: "", token: "" };
 
@@ -15,8 +16,6 @@ try {
 if (admin.id === "1") {
   adminInterface();
 }
-
-console.log(admin);
 
 const worksList = await fetchWorks();
 const gallery = document.querySelector(".gallery");
@@ -73,4 +72,4 @@ modifier.forEach((lien) => {
   lien.addEventListener("click", openModal);
 });
 
-postWork("FrontEnd/assets/images/abajour-tahina.png", "abajour", 1);
+//postWork("FrontEnd/assets/images/abajour-tahina.png", "abajour", 1);

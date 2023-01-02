@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="ISO-8859-1" />
     <title>Sophie Bluel - Architecte d'intérieur</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Work+Sans&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Work+Sans:wght@400;700;800&display=swap"
       rel="stylesheet"
     />
     <script
@@ -59,10 +59,43 @@
       <dialog class="modal">
         <div class="modal-wrap js-stop">
           <i class="fa-solid fa-xmark close-modal"></i>
-          <h2>Galerie photo</h2>
-          <div class="modal-galery"></div>
-          <button>Ajouter une photo</button>
-          <p>Supprimer la galerie</p>
+          <div class="modal-supp">
+            <h2>Galerie photo</h2>
+            <div class="modal-galery"></div>
+            <button class="add-pic">Ajouter une photo</button>
+            <p>Supprimer la galerie</p>
+          </div>
+          <div class="modal-add">
+            <i class="fa-solid fa-arrow-left"></i>
+            <form
+              action=""
+              method="post"
+              enctype="multipart/form-data"
+              accept-charset="utf-8"
+            >
+              <div class="form-modul">
+                <h2>Ajout photo</h2>
+                <div class="input-photo">
+                  <label for="image">
+                    <i class="fa-regular fa-image i-label-form"></i>
+                    <p class="label-text">+ Ajouter photo</p></label
+                  >
+                  <input type="file" name="image" id="image" required />
+                  <p class="label-info">jpg,png : 4mo max</p>
+                </div>
+                <label for="title">Titre</label>
+                <input type="text" name="title" id="title" required />
+                <label for="category">Catégories</label>
+                <select name="category" id="category" required>
+                  <option value=""></option>
+                  <option value="1">Objets</option>
+                  <option value="2">Appartements</option>
+                  <option value="3">Bar & Restaurants</option>
+                </select>
+              </div>
+              <button type="submit">Valider</button>
+            </form>
+          </div>
         </div>
       </dialog>
       <section id="portfolio">

@@ -21,7 +21,7 @@ paths:
                 password:
                   type: string
       responses:
-        '200':
+        "200":
           description: Connected
           content:
             application/json:
@@ -35,15 +35,15 @@ paths:
                   token:
                     type: string
                     example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4
-        '404':
+        "404":
           description: User not found
-        '401':
+        "401":
           description: Not Authorized
   /categories:
     get:
       summary: Returns all categories
       responses:
-        '200':
+        "200":
           description: Returns an array of all categories
           content:
             application/json:
@@ -59,13 +59,13 @@ paths:
                     name:
                       type: string
                       example: "Objets"
-        '500':
+        "500":
           description: Unexpected Error
   /works:
     get:
       summary: Returns all works
       responses:
-        '200':
+        "200":
           description: Returns an array of all works
           content:
             application/json:
@@ -102,81 +102,81 @@ paths:
                         name:
                           type: string
                           example: "Objets"
-        '500':
+        "500":
           description: Unexpected Error
     post:
-     summary: Send a new Work
-     security:
-       - BearerAuth: []
+      summary: Send a new Work
+      security:
+        - BearerAuth: []
 
-     requestBody:
-       required: true
-       content:
-         multipart/form-data:
-           schema:
-             type: object
-             properties:
-               image:
-                 type: string
-                 format: binary
-               title:
-                 type: string
-               category:
-                 type: integer
-                 format: int64
-     responses:
-       '201':
-         description: Created
-         content:
-           application/json:
-             schema:
-               type: object
-               properties:
-                 id:
-                   type: integer
-                   format: int64
-                 title:
-                   type: string
-                 imageUrl:
-                   type: string
-                 categoryId:
-                   type: string
-                 userId:
-                   type: integer
-                   format: int64
-       '500':
-         description: Unexpected Error
-       '401':
-         description: Unauthorized
-       '400':
-         description: Bad Request
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+                title:
+                  type: string
+                category:
+                  type: integer
+                  format: int64
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                  title:
+                    type: string
+                  imageUrl:
+                    type: string
+                  categoryId:
+                    type: string
+                  userId:
+                    type: integer
+                    format: int64
+        "500":
+          description: Unexpected Error
+        "401":
+          description: Unauthorized
+        "400":
+          description: Bad Request
   /works/{id}:
     delete:
-     summary: Delete a work depending on id
-     security:
-       - BearerAuth: []
-     parameters:
-       - name: id
-         in: path
-         required: true
-         description: id of work to be deleted
-         schema:
-           type: integer
-           format: int64
-           example: 1
-     responses:
-       '200':
-         description: Item Deleted
-       '401':
-         description: Unauthorized
-       '500':
-         description: Unexpected Behaviour
+      summary: Delete a work depending on id
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id of work to be deleted
+          schema:
+            type: integer
+            format: int64
+            example: 1
+      responses:
+        "200":
+          description: Item Deleted
+        "401":
+          description: Unauthorized
+        "500":
+          description: Unexpected Behaviour
 
 components:
   securitySchemes:
-   BearerAuth:
-     type: http
-     scheme: bearer
+    BearerAuth:
+      type: http
+      scheme: bearer
 securityDefinitions:
   Bearer:
     type: JWT

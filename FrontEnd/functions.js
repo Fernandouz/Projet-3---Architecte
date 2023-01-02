@@ -1,3 +1,5 @@
+import { openForm } from "./modal.js";
+
 export async function fetchWorks() {
   const r = await fetch("http://localhost:5678/api/works");
   if (r.ok === true) {
@@ -71,14 +73,15 @@ export async function openModal() {
       const id = elementToDel.getAttribute("id");
       const galery = Array.from(document.querySelectorAll(".gallery figure"));
       const parentDelete = galery.find((element) => element.id === id); // trouve dans le tableau des figures
-
       elementToDel.remove();
       parentDelete.remove();
-      //if(fetchDelete(id) === 200;
+      fetchDelete(id);
 
       console.log();
     });
   });
+  const buttonAdd = document.querySelector(".add-pic");
+  buttonAdd.addEventListener("click", (e) => openForm());
 }
 
 const closeModale = function () {
@@ -93,34 +96,22 @@ const closeModale = function () {
 };
 
 const cookies = document.cookie.split("; ");
-const token = cookies[1].slice(6);
+const token = function () {
+  if (document.cookie) {
+    return cookies[1].slice(6);
+  }
+};
 
 async function fetchDelete(id) {
   const r = await fetch("http://localhost:5678/api/works/" + id, {
     method: "DELETE",
     headers: {
       accept: "*/*",
-      Authorization: "Bearer " + token,
+      Authorization: "Bearer " + token(),
     },
   });
-  return r.status;
+  return r;
 }
 
-export async function postWork(imgUrl, title, category) {
-  let work = {
-    image: imgUrl,
-    title: title,
-    category: category,
-  };
-
-  let response = await fetch("http://localhost:5678/api/works", {
-    method: "POST",
-    headers: {
-      accept: "*/*",
-      Authorization: "Bearer " + token,
-      "Content-Type": "multipart/form-data",
-    },
-    body: JSON.stringify(work),
-  });
-  console.log(response.status);
-}
+console.log();
+console.log();
