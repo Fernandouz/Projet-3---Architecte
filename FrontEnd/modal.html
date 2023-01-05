@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="modal-wrap js-stop">
+      <i class="fa-solid fa-xmark close-modal"></i>
+      <div class="modal-supp">
+        <h2>Galerie photo</h2>
+        <div class="modal-galery"></div>
+        <button class="add-pic">Ajouter une photo</button>
+        <p>Supprimer la galerie</p>
+      </div>
+      <div class="modal-add">
+        <i class="fa-solid fa-arrow-left back"></i>
+        <form
+          action=""
+          method="post"
+          enctype="multipart/form-data"
+          accept-charset="utf-8"
+        >
+          <div class="form-modul">
+            <h2>Ajout photo</h2>
+            <div class="input-photo">
+              <label for="image">
+                <i class="fa-regular fa-image i-label-form"></i>
+                <p class="label-text">+ Ajouter photo</p></label
+              >
+              <input type="file" name="image" id="image" required />
+              <p class="label-info">jpg,png : 4mo max</p>
+            </div>
+            <label for="title">Titre</label>
+            <input type="text" name="title" id="title" required />
+            <label for="category">Catégories</label>
+            <select name="category" id="category" required>
+              <option value=""></option>
+              <option value="1">Objets</option>
+              <option value="2">Appartements</option>
+              <option value="3">Bar & Restaurants</option>
+            </select>
+          </div>
+          <button type="submit">Valider</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

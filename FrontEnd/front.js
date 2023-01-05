@@ -1,31 +1,33 @@
-import { fetchWorks, openModal } from "./functions.js";
-import { createWork } from "./functions.js";
-import { adminInterface } from "./functions.js";
-import {} from "./modal.js";
+import { fetchWorks, adminInterface, createWork } from "./functions.js";
+import { openModal } from "./modal.js";
 
 let admin = { id: "", token: "" };
 
+// on teste pour savoir si l'utilisateur est enregisté
 try {
   if (document.cookie != "undefined") {
     const cookies = document.cookie.split("; ");
     admin.id = cookies[0].slice(-1);
     admin.token = cookies[1].slice(6);
+    if (admin.id === "1") {
+      adminInterface();
+    }
   }
 } catch {}
 
-if (admin.id === "1") {
-  adminInterface();
-}
+fetchWorks();
 
-const worksList = await fetchWorks();
 const gallery = document.querySelector(".gallery");
 
-worksList.forEach((work) => {
+// Listing de tout les travaux de la base de donnée
+for (let i = 0; i < localStorage.length; i++) {
+  const work = JSON.parse(localStorage.getItem(localStorage.key(i)));
   gallery.append(
     createWork(work.id, work.imageUrl, work.title, work.category.id)
   );
-});
+}
 
+// Mise en place des filtres par catégorie
 const filters = document.querySelectorAll(".filter");
 
 filters.forEach((filter) => {
@@ -63,13 +65,10 @@ filters.forEach((filter) => {
   });
 });
 
+// Pour ouvrir la modale
 const modifier = document.querySelectorAll(".modifier");
 const modal = document.querySelector("dialog");
-
-//modal.Attribute("open");
 
 modifier.forEach((lien) => {
   lien.addEventListener("click", openModal);
 });
-
-//postWork("FrontEnd/assets/images/abajour-tahina.png", "abajour", 1);
