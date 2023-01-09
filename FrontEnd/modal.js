@@ -140,6 +140,10 @@ const closeModale = function () {
           accept: "* /*",
           Authorization: "Bearer " + token(),
         },
+      }).then((r) => {
+        if (r.ok === false) {
+          alert("Erreur de la suppression, veuillez réessayer s'il vous plait");
+        }
       });
     }
     sessionStorage.clear();
@@ -154,7 +158,7 @@ const closeModale = function () {
     });
     if (reponse.ok) {
     } else {
-      //console.error("Error deleting work:", reponse.statusText);
+      alert("Erreur de la suppression, veuillez réessayer s'il vous plait");
     }
     sessionStorage.clear();
   }
