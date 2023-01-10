@@ -128,12 +128,11 @@ const closeModale = function () {
   modal
     .querySelector(".js-stop")
     .removeEventListener("click", (e) => e.stopPropagation);
-  if (sessionStorage.length === 0) {
+  if (sessionStorage.length === 1) {
     return;
-  } else if (sessionStorage.length > 1) {
+  } else if (sessionStorage.length > 2) {
     for (let i = 0; i < sessionStorage.length; i++) {
       const id = sessionStorage.getItem(sessionStorage.key(i));
-      console.log(id);
       fetch("http://localhost:5678/api/works/" + id, {
         method: "DELETE",
         headers: {
