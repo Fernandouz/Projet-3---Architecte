@@ -1,3 +1,5 @@
+import { fetchWorks } from "./functions.js";
+
 export async function openModal() {
   const modal = document.querySelector("dialog");
   // Si la modale a deja été ouverte on return
@@ -17,12 +19,15 @@ export async function openModal() {
   const html = await fetch("modal.html").then((r) => r.text());
   const element = document.createRange().createContextualFragment(html);
   modal.append(element);
-  for (let i = 0; i < localStorage.length; i++) {
-    const work = JSON.parse(localStorage.getItem(localStorage.key(i)));
+  //for (let i = 0; i < localStorage.length; i++) {
+  // const work = JSON.parse(localStorage.getItem(localStorage.key(i)));
+  const workList = await fetchWorks();
+  workList.forEach((work) => {
     document
       .querySelector(".modal-galery")
       .append(createModalElement(work.imageUrl, work.id));
-  }
+  });
+
   // Ouvre la modale
   modal.setAttribute("open", "");
   modal.addEventListener("click", closeModale);
@@ -45,7 +50,6 @@ async function deleteWork(e) {
   const galery = Array.from(document.querySelectorAll(".gallery figure"));
   const parentDelete = galery.find((element) => element.id === id); // trouve dans le tableau des figures
   sessionStorage.setItem("toSup" + id, id);
-  localStorage.removeItem(id);
   elementToDel.remove();
   parentDelete.remove();
 }
@@ -105,7 +109,7 @@ const token = function () {
 };
 
 export async function postWork(FormData) {
-  let response = await fetch("http://localhost:5678/api/works", {
+  const r = await fetch("http://localhost:5678/api/works", {
     method: "POST",
     headers: {
       ContentType: "multipart/form-data",
@@ -114,6 +118,8 @@ export async function postWork(FormData) {
     },
     body: FormData,
   });
+  if (r.ok) {
+  }
 }
 
 const closeModale = function () {
@@ -130,7 +136,7 @@ const closeModale = function () {
     .removeEventListener("click", (e) => e.stopPropagation);
   if (sessionStorage.length === 1) {
     return;
-  } else if (sessionStorage.length > 2) {
+  } else if (sessionStorage.length > 1) {
     for (let i = 0; i < sessionStorage.length; i++) {
       const id = sessionStorage.getItem(sessionStorage.key(i));
       fetch("http://localhost:5678/api/works/" + id, {
@@ -144,20 +150,6 @@ const closeModale = function () {
           alert("Erreur de la suppression, veuillez réessayer s'il vous plait");
         }
       });
-    }
-    sessionStorage.clear();
-  } else {
-    const id = sessionStorage.getItem(sessionStorage.key(0));
-    const reponse = fetch("http://localhost:5678/api/works/" + id, {
-      method: "DELETE",
-      headers: {
-        accept: "* /*",
-        Authorization: "Bearer " + token(),
-      },
-    });
-    if (reponse.ok) {
-    } else {
-      alert("Erreur de la suppression, veuillez réessayer s'il vous plait");
     }
     sessionStorage.clear();
   }

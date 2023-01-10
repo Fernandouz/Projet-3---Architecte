@@ -19,13 +19,16 @@ async function fetchUser(mail, mdp) {
   return result;
 }
 
+// Soumission du formulaire
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   const data = new FormData(form);
   const mail = data.get("email");
   const password = data.get("password");
+  // appel fetch et recuperation des token d'authentification dans la reponse
   fetchUser(mail, password).then((res) => {
     if (res.userId === 1) {
+      // sauvegarde dans les cookies
       document.cookie = "userId=" + res.userId;
       document.cookie = "token=" + res.token;
       window.location.href = "index.html";

@@ -12,12 +12,7 @@ export async function fetchWorks() {
     signal: a.signal,
   });
   if (r.ok) {
-    const content = await r.json();
-    content.forEach((work) => {
-      const local = JSON.parse(JSON.stringify(work));
-      localStorage.setItem(local.id, JSON.stringify(local));
-    });
-    a.abort();
+    return r.json();
   }
 }
 
@@ -30,6 +25,7 @@ export function createWork(id, imgSrc, title, category) {
   img.crossOrigin = "anonymous";
   fig.innerHTML = title;
   element.setAttribute("id", id);
+  // On attribue une classe pour la mise en place des filtres
   element.classList.add("cat" + category);
   element.append(img, fig);
   return element;
@@ -40,12 +36,14 @@ export function adminInterface() {
   document.querySelector(".filters").style.display = "none";
   const logout = document.querySelector("header nav li a");
   logout.innerHTML = "logout";
+  // gestion du logout
   logout.addEventListener("click", (e) => {
     e.preventDefault();
     document.cookie = "userId=; expires=Mon, 02 Oct 2000 01:00:00 GMT";
     document.cookie = "token=; expires=Mon, 02 Oct 2000 01:00:00 GMT";
     window.location.href = "index.html";
   });
+  // affichage des icones modifier
   document.querySelectorAll(".modifier").forEach((div) => {
     div.innerHTML = `<i class="fa-regular fa-pen-to-square"></i> modifier`;
   });

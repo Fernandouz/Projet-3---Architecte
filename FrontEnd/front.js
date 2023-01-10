@@ -15,17 +15,16 @@ try {
   }
 } catch {}
 
-fetchWorks();
+const workList = await fetchWorks();
 
 const gallery = document.querySelector(".gallery");
 
 // Listing de tout les travaux de la base de donnée
-for (let i = 0; i < localStorage.length; i++) {
-  const work = JSON.parse(localStorage.getItem(localStorage.key(i)));
+workList.forEach((work) => {
   gallery.append(
     createWork(work.id, work.imageUrl, work.title, work.category.id)
   );
-}
+});
 
 // Mise en place des filtres par catégorie
 const filters = document.querySelectorAll(".filter");
